@@ -2,7 +2,7 @@ import Gradient from "@/components/ui/Gradient";
 import { Tabs, router } from "expo-router";
 import { CreditCard, Home, SquareArrowRight, Users } from "lucide-react-native";
 import { Image, Pressable, StyleSheet, View } from "react-native";
-import { gradientColors } from "../../constants/gradien";
+import { gradientColors } from "@/constants/gradien";
 
 import qrcodeImg from "@/assets/icons/qrCode.png";
 
@@ -40,7 +40,7 @@ export default function TabsLayout() {
                     tabBarButton: () => (
                         <View className="flex-1 items-center">
                             <Pressable
-                                onPress={() => router.push("/scannerBtn")}
+                                onPress={() => router.push("/app/scannerBtn")}
                                 style={{elevation:6}}
                                 className="bottom-7 active:scale-95 bg-[#FF5A24] rounded-3xl"
                             >

@@ -11,6 +11,7 @@ type ReceiversHeaderProps = {
     count: number;
     sortByName: boolean;
     onToggleSort: () => void;
+    showAddButton?: boolean;
 };
 
 export default function ReceiversHeader({
@@ -19,6 +20,7 @@ export default function ReceiversHeader({
     count,
     sortByName,
     onToggleSort,
+    showAddButton = true,
 }: ReceiversHeaderProps) {
     return (
         <View className="pb-4">
@@ -50,7 +52,7 @@ export default function ReceiversHeader({
                         </Pressable>
                     )}
                 </View>
-                <AddReceiverButton />
+                {showAddButton && <AddReceiverButton />}
             </View>
 
             <View className="mt-6 flex-row items-center justify-between gap-3">

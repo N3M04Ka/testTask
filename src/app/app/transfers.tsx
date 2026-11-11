@@ -21,10 +21,11 @@ import TransfersEmptyState from "@/components/transfers/TransfersEmptyState";
 import TransfersHeader from "@/components/transfers/TransfersHeader";
 import TransfersSkeleton from "@/components/transfers/TransfersSkeleton";
 import { receiversArray } from "@/constants/receivers";
-import { transfersArray } from "@/constants/transfers";
 import { selectTransfers } from "@/functions/selectTransfers";
+import { useTransfer } from "@/providers/TransferProvider";
 
 export default function Transfers() {
+    const { transfers: sessionTransfers } = useTransfer();
     const [query, setQuery] = useState("");
     const [loading, setLoading] = useState(true);
     const [fontsLoaded, fontError] = useFonts({
@@ -33,12 +34,12 @@ export default function Transfers() {
     });
 
     useEffect(() => {
-        const timeout = setTimeout(() => setLoading(false), 500);
+        const timeout = setTimeout(() => setLoading(false), 1000*Math.random());
         return () => clearTimeout(timeout);
     }, []);
 
     const isLoading = loading || (!fontsLoaded && !fontError);
-    const transfers = selectTransfers(transfersArray, receiversArray, query);
+    const transfers = selectTransfers(sessionTransfers, receiversArray, query);
 
     if (!fontsLoaded && !fontError) {
         return (

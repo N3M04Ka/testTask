@@ -18,7 +18,10 @@ export default function TransferCard({ transfer }: TransferCardProps) {
     if (!receiver) return null;
 
     const status = transferStatuses[transfer.status];
-    const amount = Math.abs(transfer.amount).toLocaleString("ru-RU");
+    const amount = Math.abs(transfer.amount).toLocaleString("ru-RU", {
+        minimumFractionDigits: Number.isInteger(transfer.amount) ? 0 : 2,
+        maximumFractionDigits: 2,
+    });
     const sign = transfer.amount > 0 ? "+" : "−";
     const currency = transfer.currency;
 

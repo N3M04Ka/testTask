@@ -21,7 +21,7 @@ export default function AllOperations() {;
             <Pressable
                 accessibilityRole="button"
                 accessibilityLabel="Все операции. Открыть историю переводов"
-                onPress={() => router.push("/transfers")}
+                onPress={() => router.push("/app/transfers")}
                 className="min-h-11 flex-row gap-1 items-center active:opacity-70"
             >
                 <Text
