@@ -1,16 +1,14 @@
-import { FlatList, View, Text, Image } from "react-native";
-import { suggestionsArray } from "@/constants/suggestions";
+import { Pressable, View, Text } from "react-native";
+import { router } from "expo-router";
 import { ChevronRight } from "lucide-react-native";
 import {
     Montserrat_600SemiBold,
     useFonts,
 } from "@expo-google-fonts/montserrat";
 import { Jost_500Medium } from "@expo-google-fonts/jost";
-import { OperationsArray, type OperationType } from "@/constants/operations";
+import { OperationsArray, operationImageStyle, transactionColor } from "@/constants/operations";
 import { currencySymbols } from "@/constants/currencySymbols";
-import { transactionColor } from "@/constants/operations";
 import { operationDateFormat } from "@/functions/operationDateFormat";
-import {operationImageStyle} from '@/constants/operations';
 
 export default function AllOperations() {;
     const [loaded, error] = useFonts({
@@ -20,7 +18,12 @@ export default function AllOperations() {;
     if (!loaded && !error) return null;
     return (
         <View className="bg-white w-11/12 rounded-3xl p-5 mt-5">
-            <View className="flex-row gap-1 items-center">
+            <Pressable
+                accessibilityRole="button"
+                accessibilityLabel="Все операции. Открыть историю переводов"
+                onPress={() => router.push("/transfers")}
+                className="min-h-11 flex-row gap-1 items-center active:opacity-70"
+            >
                 <Text
                     style={{ fontFamily: "Montserrat_600SemiBold" }}
                     className="text-2xl mb-1"
@@ -28,7 +31,7 @@ export default function AllOperations() {;
                     Все операции
                 </Text>
                 <ChevronRight color={"#00000080"} />
-            </View>
+            </Pressable>
             <View>
                 {OperationsArray.map((item) => {
                     const iconStyle=operationImageStyle[item.operationSign]
