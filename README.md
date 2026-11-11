@@ -1,56 +1,46 @@
-# Welcome to your Expo app 👋
+# P2P-переводы
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Мобильное приложение на React Native, Expo SDK 58 и TypeScript.
 
-## Get started
+## Установка с нуля
 
-1. Install dependencies
-
-   ```bash
-   npm install
-   ```
-
-2. Start the app
+1. Установите [Node.js 24 LTS](https://nodejs.org/) версии 24.3 или новее в ветке 24. npm входит в установку Node.js.
+2. Распакуйте архив или скачайте репозиторий. Откройте терминал в папке, где лежат `package.json` и `package-lock.json`. В Windows можно использовать командную строку (`cmd.exe`).
+3. Установите зависимости из lock-файла:
 
    ```bash
-   npx expo start
+   npm ci
    ```
 
-In the output, you'll find options to open the app in a
+Для установки зависимостей и загрузки курсов валют с `www.cbr-xml-daily.ru` нужен интернет. Приложение запускается без `.env`, API-ключей и отдельного бэкенда.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Запуск на телефоне или в эмуляторе
 
-You can start developing by editing the files inside the **src/app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+1. Установите Expo Go с поддержкой SDK 58. Сборки для Android, Android Emulator и iOS Simulator доступны на [странице Expo Go](https://expo.dev/go).
+2. Подключите телефон и компьютер к одной сети Wi-Fi. В корне проекта запустите:
 
-## Get a fresh project
+   ```bash
+   npm start
+   ```
 
-When you're ready, run:
+3. На Android отсканируйте QR-код из терминала в Expo Go. На iPhone отсканируйте код камерой. Если Expo Go запросит вход, выполните `npx expo login` на компьютере и войдите в тот же аккаунт в Expo Go. Для Android Emulator запустите виртуальное устройство в Android Studio и нажмите `a` в терминале Expo. Для iOS Simulator на macOS с Xcode нажмите `i`.
+
+Если на iPhone в App Store доступна другая версия SDK, выберите SDK 58 на [странице установки Expo Go для iOS](https://sign.expo.dev/). Если телефон не видит компьютер в локальной сети, попробуйте `npx expo start --tunnel`.
+
+## Локальная нативная сборка
+
+Для отладочной сборки Android установите Android Studio, JDK 17 и Android SDK Platform 37. Настройте `JAVA_HOME` и `ANDROID_HOME`, добавьте `platform-tools` в `PATH`. Запустите эмулятор или подключите Android-устройство с отладкой по USB, затем выполните:
 
 ```bash
-npm run reset-project
+npx expo run:android --device
 ```
 
-This command will move the starter code to the **example** directory and create a blank **src/app** directory where you can start developing.
+На macOS с Xcode 26.4 или новее собрать и запустить приложение в iOS Simulator можно командой `npx expo run:ios`. При первом запуске Expo сгенерирует папку соответствующей платформы и может запросить идентификатор приложения. Для локальной проверки можно указать `com.example.testtask`. [Документация Expo по локальной сборке](https://docs.expo.dev/guides/local-app-development/)
 
-### Other setup steps
+## Проверки
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+```bash
+npm run lint
+npx tsc --noEmit
+node --test tests/transferFlow.test.mjs
+```
